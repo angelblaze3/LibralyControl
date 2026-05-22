@@ -38,7 +38,7 @@ class BookController extends Controller
         Book::create($validated);
 
         // Redirigimos al index con un mensaje de exito
-        return redirect()->route('admin.books.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Book created successfully.');
     }
 
@@ -64,7 +64,7 @@ class BookController extends Controller
 
         $book->update($validated);
 
-        return redirect()->route('admin.books.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Book updated successfully.');
     }
 
@@ -73,7 +73,7 @@ class BookController extends Controller
     {
         $book->delete();
 
-        return redirect()->route('admin.books.index')
+        return redirect()->route('admin.dashboard')
             ->with('success', 'Book deleted successfully.');
     }
 }
