@@ -1,28 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library — Admin</title>
-    @livewireStyles
-</head>
-<body>
-<h1>Library Admin</h1>
-<p>Welcome, {{ auth()->user()->name }}</p>
+<x-layouts.admin title="Admin Dashboard">
 
-{{-- Mostramos el mensaje de exito si existe en la sesion --}}
-@if(session('success'))
-    <p>{{ session('success') }}</p>
-@endif
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Books Management</h2>
+        <p class="text-gray-500 text-sm mt-1">Manage your library catalog</p>
+    </div>
 
-{{-- Incluimos el componente de tabla del admin --}}
-@livewire('admin.book-table')
+    @livewire('admin.book-table')
 
-<form action="{{ route('admin.logout') }}" method="POST">
-    @csrf
-    <button type="submit">Logout</button>
-</form>
-
-@livewireScripts
-</body>
-</html>
+</x-layouts.admin>

@@ -1,25 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library — Search Books</title>
-    {{-- Livewire necesita sus estilos en el head --}}
-    @livewireStyles
-</head>
-<body>
-<h1>Library — Book Search</h1>
-<p>Welcome, {{ auth()->user()->name }}</p>
+<x-layouts.app title="Search Books">
 
-{{-- Aqui incluimos el componente Livewire de busqueda --}}
-@livewire('book-search')
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Search Books</h2>
+        <p class="text-gray-500 text-sm mt-1">Find any book in our library</p>
+    </div>
 
-<form action="{{ route('user.logout') }}" method="POST">
-    @csrf
-    <button type="submit">Logout</button>
-</form>
+    @livewire('book-search')
 
-{{-- Livewire necesita sus scripts antes de cerrar el body --}}
-@livewireScripts
-</body>
-</html>
+</x-layouts.app>

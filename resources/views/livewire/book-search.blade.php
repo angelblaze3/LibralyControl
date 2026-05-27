@@ -1,44 +1,65 @@
 <div>
-    {{-- wire:model.live actualiza $search en tiempo real --}}
-    {{-- debounce.300ms espera 300ms para no hacer request por cada tecla --}}
-    <input
-        type="text"
-        wire:model.live.debounce.300ms="search"
-        placeholder="Search by title, author or ISBN..."
-    />
+    {{-- Input de busqueda --}}
+    <div class="relative mb-6">
+        <input
+            type="text"
+            wire:model.live.debounce.300ms="search"
+            placeholder="Search by title, author or ISBN..."
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 pr-10"
+        />
+        <span wire:loading class="absolute right-3 top-3 text-gray-400 text-sm">
+            ⏳
+        </span>
+    </div>
 
-    {{-- Se muestra solo mientras Livewire esta procesando --}}
-    <span wire:loading>Searching...</span>
+    {{-- Contador de resultados --}}
+    <p class="text-sm text-gray-500 mb-3">
+        {{ $books->total() }} book(s) found
+        @if($search)
+            for "{{ $search }}"
+        @endif
+    </p>
 
-    @if(strlen($search) >= 2)
-        @if($books->isEmpty())
+    @if($books->isEmpty())
+        <div class="text-center py-12 text-gray-400">
+            <p class="text-4xl mb-2">📭</p>
             <p>No books found for "{{ $search }}"</p>
-        @else
-            <p>{{ $books->count() }} book(s) found</p>
-            <table>
-                <thead>
+        </div>
+    @else
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>ISBN</th>
-                    <th>Genre</th>
-                    <th>Year</th>
-                    <th>Copies</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">Title</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">Author</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">ISBN</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">Genre</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">Year</th>
+                    <th class="text-left px-4 py-3 font-medium text-gray-600">Copies</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="divide-y divide-gray-100">
                 @foreach($books as $book)
-                    <tr>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->author }}</td>
-                        <td>{{ $book->isbn }}</td>
-                        <td>{{ $book->genre ?? '—' }}</td>
-                        <td>{{ $book->published_year ?? '—' }}</td>
-                        <td>{{ $book->copies }}</td>
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-4 py-3 font-medium text-gray-800">{{ $book->title }}</td>
+                        <td class="px-4 py-3 text-gray-600">{{ $book->author }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $book->isbn }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $book->genre ?? '—' }}</td>
+                        <td class="px-4 py-3 text-gray-500">{{ $book->published_year ?? '—' }}</td>
+                        <td class="px-4 py-3">
+                                <span class="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full text-xs font-medium">
+                                    {{ $book->copies }}
+                                </span>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-        @endif
+        </div>
+
+        {{-- Paginacion --}}
+        <div class="mt-4">
+            {{ $books->links() }}
+        </div>
     @endif
 </div>
