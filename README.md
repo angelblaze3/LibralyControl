@@ -37,33 +37,6 @@ Tecnología	Uso
 
 El proyecto sigue la arquitectura MVC (Model–View–Controller) proporcionada por Laravel.
 
-LibralyControl
-│
-├── app/
-│   ├── Http/
-│   │   └── Controllers/
-│   ├── Livewire/
-│   │   └── Admin/
-│   ├── Models/
-│   └── Providers/
-│
-├── database/
-│   ├── factories/
-│   ├── migrations/
-│   └── seeders/
-│
-├── resources/
-│   ├── css/
-│   ├── js/
-│   └── views/
-│
-├── routes/
-│   └── web.php
-│
-└── tests/
-
-La separación de responsabilidades permite mantener organizada la lógica de negocio, los modelos de datos y la interfaz de usuario.
-
 🔐 Sistema de acceso
 
 LibralyControl implementa diferentes rutas y middleware dependiendo del tipo de usuario.
